@@ -11,6 +11,7 @@
             controller.AddDevice(new Oven("Electrolux", "Kitchen", 250));
             controller.AddDevice(new RobotVacuum("Xiaomi", "Living room", 85.0));
             controller.AddDevice(new CoffeeMachine("Nespresso", "Kitchen", 4));
+            controller.AddDevice(new AirConditioner("Daikin", "Bedroom", 22));
 
             controller.PrintStatusReport();
             Console.WriteLine();
