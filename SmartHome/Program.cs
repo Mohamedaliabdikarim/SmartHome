@@ -4,22 +4,25 @@
     {
         static void Main(string[] args)
         {
-            List<Appliance> devices = new List<Appliance>();
+            SmartHomeController controller = new SmartHomeController();
 
-            devices.Add(new Washer("LG", "Laundry room", 7.0));
-            devices.Add(new Refrigerator("Samsung", "Kitchen", 4.0));
-            devices.Add(new Oven("Electrolux", "Kitchen", 250));
-            devices.Add(new RobotVacuum("Xiaomi", "Living room", 85.0));
-            devices.Add(new CoffeeMachine("Nespresso", "Kitchen", 4));
+            controller.AddDevice(new Washer("LG", "Laundry room", 7.0));
+            controller.AddDevice(new Refrigerator("Samsung", "Kitchen", 4.0));
+            controller.AddDevice(new Oven("Electrolux", "Kitchen", 250));
+            controller.AddDevice(new RobotVacuum("Xiaomi", "Living room", 85.0));
+            controller.AddDevice(new CoffeeMachine("Nespresso", "Kitchen", 4));
 
-            foreach (Appliance device in devices)
-            {
-                Console.WriteLine(device.GetInfo());
-                device.TurnOn();
-                Console.WriteLine($"Energy usage: {device.GetDailyEnergyUsage()} kWh");
-                device.TurnOff();
-                Console.WriteLine();
-            }
+            controller.PrintStatusReport();
+            Console.WriteLine();
+
+            controller.TurnOnAll();
+            Console.WriteLine();
+
+            double totalEnergy = controller.GetTotalDailyEnergyUsage();
+            Console.WriteLine($"Total daily energy usage: {totalEnergy} kWh");
+            Console.WriteLine();
+
+            controller.TurnOffAll();
 
             // ==================== REFLEKTION DEL 1 ====================
             // 1. Varför behövde du kontrollera vilken typ varje objekt hade?
