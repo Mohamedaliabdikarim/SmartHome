@@ -4,30 +4,36 @@ using System.Text;
 
 namespace SmartHome
 {
-    public class RobotVacuum
+    public class RobotVacuum : Appliance
     {
-        public string Brand { get; }
         public double BatteryLevel { get; }
 
-        public RobotVacuum(string brand, double batteryLevel)
+        public RobotVacuum(string brand, string room, double batteryLevel)
+            : base(brand, room)
         {
-            Brand = brand;
             BatteryLevel = batteryLevel;
         }
 
-        public void StartCleaning()
+        public override string GetInfo()
         {
+            return $"{Brand} robot vacuum (battery: {BatteryLevel}%) in {Room}";
+        }
+
+        public override void TurnOn()
+        {
+            IsOn = true;
             Console.WriteLine($"{Brand} robot vacuum starts cleaning.");
         }
 
-        public void StopCleaning()
+        public override void TurnOff()
         {
+            IsOn = false;
             Console.WriteLine($"{Brand} robot vacuum stops cleaning.");
         }
 
-        public void PrintCleaningEnergy()
+        public override double GetDailyEnergyUsage()
         {
-            Console.WriteLine($"{Brand} robot vacuum uses 0.4 kWh per cleaning.");
+            return 0.4;
         }
     }
 }

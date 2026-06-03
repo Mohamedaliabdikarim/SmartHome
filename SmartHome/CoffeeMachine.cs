@@ -4,30 +4,36 @@ using System.Text;
 
 namespace SmartHome
 {
-    public class CoffeeMachine
+    public class CoffeeMachine : Appliance
     {
-        public string Brand { get; }
         public int CupsPerBrew { get; }
 
-        public CoffeeMachine(string brand, int cupsPerBrew)
+        public CoffeeMachine(string brand, string room, int cupsPerBrew)
+            : base(brand, room)
         {
-            Brand = brand;
             CupsPerBrew = cupsPerBrew;
         }
 
-        public void StartBrewing()
+        public override string GetInfo()
         {
+            return $"{Brand} coffee machine ({CupsPerBrew} cups per brew) in {Room}";
+        }
+
+        public override void TurnOn()
+        {
+            IsOn = true;
             Console.WriteLine($"{Brand} coffee machine starts brewing.");
         }
 
-        public void StopBrewing()
+        public override void TurnOff()
         {
+            IsOn = false;
             Console.WriteLine($"{Brand} coffee machine stops brewing.");
         }
 
-        public void PrintBrewingEnergy()
+        public override double GetDailyEnergyUsage()
         {
-            Console.WriteLine($"{Brand} coffee machine uses 0.3 kWh per brew.");
+            return 0.3;
         }
     }
 }

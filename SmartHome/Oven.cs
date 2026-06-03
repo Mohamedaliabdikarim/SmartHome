@@ -5,30 +5,36 @@ using System.Text;
 
 namespace SmartHome
 {
-    public class Oven
+    public class Oven : Appliance
     {
-        public string Brand { get; }
         public int MaxTemperature { get; }
 
-        public Oven(string brand, int maxTemperature)
+        public Oven(string brand, string room, int maxTemperature)
+            : base(brand, room)
         {
-            Brand = brand;
             MaxTemperature = maxTemperature;
         }
 
-        public void StartHeating()
+        public override string GetInfo()
         {
-            Console.WriteLine($"{Brand} oven starts heating.");
+            return $"{Brand} oven (max {MaxTemperature}°C) in {Room}";
         }
 
-        public void StopHeating()
+        public override void TurnOn()
         {
+            IsOn = true;
+            Console.WriteLine($"{Brand} oven starts preheating.");
+        }
+
+        public override void TurnOff()
+        {
+            IsOn = false;
             Console.WriteLine($"{Brand} oven stops heating.");
         }
 
-        public void PrintHeatingEnergy()
+        public override double GetDailyEnergyUsage()
         {
-            Console.WriteLine($"{Brand} oven uses 2.5 kWh per hour.");
+            return 2.5;
         }
     }
 }

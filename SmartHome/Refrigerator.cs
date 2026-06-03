@@ -4,30 +4,36 @@ using System.Text;
 
 namespace SmartHome
 {
-    public class Refrigerator
+    public class Refrigerator : Appliance
     {
-        public string Brand { get; }
         public double Temperature { get; }
 
-        public Refrigerator(string brand, double temperature)
+        public Refrigerator(string brand, string room, double temperature)
+            : base(brand, room)
         {
-            Brand = brand;
             Temperature = temperature;
         }
 
-        public void StartCooling()
+        public override string GetInfo()
         {
+            return $"{Brand} refrigerator ({Temperature}°C) in {Room}";
+        }
+
+        public override void TurnOn()
+        {
+            IsOn = true;
             Console.WriteLine($"{Brand} refrigerator starts cooling.");
         }
 
-        public void StopCooling()
+        public override void TurnOff()
         {
+            IsOn = false;
             Console.WriteLine($"{Brand} refrigerator stops cooling.");
         }
 
-        public void PrintCoolingEnergy()
+        public override double GetDailyEnergyUsage()
         {
-            Console.WriteLine($"{Brand} refrigerator uses 3.6 kWh per day.");
+            return 3.6;
         }
     }
 }
