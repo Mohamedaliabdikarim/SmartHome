@@ -43,4 +43,12 @@ namespace SmartHome
             Console.WriteLine($"{Brand} washer scheduled for {NextRun:HH:mm}.");
         }
     }
+
+
+    // ==================== DEL 10 TEST B ====================
+    // Vad händer om man tar bort override från TurnOn() i Washer?
+    // Kompilatorn ger en varning (grön linje), inte ett fel.
+    // C# föreslår att man använder new för att dölja basklassens metod.
+    // Utan override fungerar inte polymorfismen - Appliance.TurnOn() körs
+    // istället för Washer.TurnOn() när variabeln har typen Appliance.
 }

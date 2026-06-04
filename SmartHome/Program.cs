@@ -52,6 +52,17 @@
                 }
             }
 
+            // HER ↓
+            Console.WriteLine();
+            Console.WriteLine("=== Del 11: SmartLamp new vs override ===");
+            SmartLamp lamp1 = new SmartLamp("IKEA", "Hallway", 80);
+            Appliance lamp2 = lamp1;
+
+            lamp1.TurnOn(); // Kör SmartLamp.TurnOn()
+            lamp2.TurnOn(); // Kör Appliance.TurnOn()
+
+            // ==================== REFLEKTION DEL 1 ====================
+
             // ==================== REFLEKTION DEL 1 ====================
             // 1. Varför behövde du kontrollera vilken typ varje objekt hade?
             //    För att listan är List<object> och kompilatorn vet inte vilken typ det är.

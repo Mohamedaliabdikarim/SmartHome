@@ -39,4 +39,11 @@ namespace SmartHome
             return 0;
         }
     }
+
+
+    // ==================== DEL 10 TEST A ====================
+    // Vad händer om man tar bort virtual från TurnOn() i Appliance?
+    // Kompilatorn ger ett fel i subklasserna där override används:
+    // "cannot override inherited member because it is not marked virtual, abstract or override"
+    // Det betyder att override kräver att basklassen har virtual.
 }
