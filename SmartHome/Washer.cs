@@ -4,9 +4,10 @@ using System.Text;
 
 namespace SmartHome
 {
-    public class Washer : Appliance
+    public class Washer : Appliance, ISchedulable
     {
         public double CapacityKg { get; }
+        public DateTime NextRun { get; set; }
 
         public Washer(string brand, string room, double capacityKg)
             : base(brand, room)
@@ -34,6 +35,12 @@ namespace SmartHome
         public override double GetDailyEnergyUsage()
         {
             return 1.2;
+        }
+
+        public void Schedule(DateTime time)
+        {
+            NextRun = time;
+            Console.WriteLine($"{Brand} washer scheduled for {NextRun:HH:mm}.");
         }
     }
 }

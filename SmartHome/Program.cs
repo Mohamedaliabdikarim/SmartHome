@@ -13,9 +13,11 @@
             controller.AddDevice(new CoffeeMachine("Nespresso", "Kitchen", 4));
             controller.AddDevice(new AirConditioner("Daikin", "Bedroom", 22));
 
+            Console.WriteLine("=== Status Report ===");
             controller.PrintStatusReport();
             Console.WriteLine();
 
+            Console.WriteLine("=== Turning On All ===");
             controller.TurnOnAll();
             Console.WriteLine();
 
@@ -23,7 +25,32 @@
             Console.WriteLine($"Total daily energy usage: {totalEnergy} kWh");
             Console.WriteLine();
 
+            Console.WriteLine("=== Turning Off All ===");
             controller.TurnOffAll();
+            Console.WriteLine();
+
+            Console.WriteLine("=== Scheduling Schedulable Devices ===");
+            controller.ScheduleAllSchedulableDevices(DateTime.Now.AddHours(2));
+            Console.WriteLine();
+
+            Console.WriteLine("=== Schedulable Devices ===");
+            List<ISchedulable> schedulableDevices = controller.GetSchedulableDevices();
+            foreach (ISchedulable schedulable in schedulableDevices)
+            {
+                Console.WriteLine($"Next run: {schedulable.NextRun:HH:mm}");
+            }
+            Console.WriteLine();
+
+            Console.WriteLine("=== Find Device By Brand ===");
+            Appliance foundDevice = controller.FindDeviceByBrand("LG");
+            if (foundDevice != null)
+            {
+                foundDevice.TurnOn();
+                if (foundDevice is ISchedulable schedulable)
+                {
+                    schedulable.Schedule(DateTime.Now.AddHours(3));
+                }
+            }
 
             // ==================== REFLEKTION DEL 1 ====================
             // 1. Varför behövde du kontrollera vilken typ varje objekt hade?
@@ -63,6 +90,28 @@
             //    Vi behöver inga if-kontroller eller casting.
             //    Kompilatorn vet att alla objekt i listan är Appliance.
             //    Om vi lägger till en ny apparat behöver vi inte ändra loopen.
+
+            // ==================== REFLEKTION DEL 9 ====================
+            // 1. Varför kan vi inte anropa Schedule() direkt på en variabel av typen Appliance?
+            //    För att Appliance inte implementerar ISchedulable.
+            //    Kompilatorn känner bara till vad Appliance erbjuder.
+
+            // 2. Varför fungerar det efter att vi castar till ISchedulable?
+            //    För att vi då berättar för kompilatorn att objektet är ISchedulable.
+            //    Kompilatorn vet nu att Schedule() finns tillgänglig.
+
+            // 3. Vad betyder det att RobotVacuum både är en Appliance och en ISchedulable?
+            //    RobotVacuum ärver från Appliance och implementerar ISchedulable.
+            //    Det betyder att den kan användas som båda typerna.
+
+            // 4. Varför ska inte Schedule() ligga direkt i Appliance?
+            //    För att inte alla apparater kan schemaläggas.
+            //    Refrigerator och Oven ska inte kunna schemaläggas.
+
+            // 5. Vad är skillnaden mellan arv och interface i det här exemplet?
+            //    Arv: Washer ärver egenskaper och metoder från Appliance (är en apparat).
+            //    Interface: Washer implementerar ISchedulable (kan schemaläggas).
+            //    Arv = vad något ÄR. Interface = vad något KAN GÖRA.
         }
     }
 }

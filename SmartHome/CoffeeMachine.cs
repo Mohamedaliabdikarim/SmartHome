@@ -4,9 +4,10 @@ using System.Text;
 
 namespace SmartHome
 {
-    public class CoffeeMachine : Appliance
+    public class CoffeeMachine : Appliance, ISchedulable
     {
         public int CupsPerBrew { get; }
+        public DateTime NextRun { get; set; }
 
         public CoffeeMachine(string brand, string room, int cupsPerBrew)
             : base(brand, room)
@@ -34,6 +35,12 @@ namespace SmartHome
         public override double GetDailyEnergyUsage()
         {
             return 0.3;
+        }
+
+        public void Schedule(DateTime time)
+        {
+            NextRun = time;
+            Console.WriteLine($"{Brand} coffee machine scheduled for {NextRun:HH:mm}.");
         }
     }
 }
