@@ -48,7 +48,7 @@ namespace SmartHome
             return total;
         }
 
-        // Del 9: Feil versjon - kompilerer ikke fordi Appliance ikke har Schedule()
+        // // Del 9: Fel version - kompilerar inte eftersom Appliance inte har Schedule()()
         // public void ScheduleAllDevicesWrong(DateTime time)
         // {
         //     foreach (Appliance device in _devices)
