@@ -4,9 +4,10 @@ using System.Text;
 
 namespace SmartHome
 {
-    public class AirConditioner : Appliance
+    public class AirConditioner : Appliance, ISchedulable
     {
         public int TargetTemperature { get; }
+        public DateTime NextRun { get; set; }
 
         public AirConditioner(string brand, string room, int targetTemperature)
             : base(brand, room)
@@ -34,6 +35,12 @@ namespace SmartHome
         public override double GetDailyEnergyUsage()
         {
             return 2.0;
+        }
+
+        public void Schedule(DateTime time)
+        {
+            NextRun = time;
+            Console.WriteLine($"{Brand} air conditioner scheduled for {NextRun:HH:mm}.");
         }
     }
 }

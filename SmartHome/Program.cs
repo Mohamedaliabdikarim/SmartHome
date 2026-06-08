@@ -51,17 +51,21 @@
                     schedulable.Schedule(DateTime.Now.AddHours(3));
                 }
             }
-
-            // HER ↓
             Console.WriteLine();
+
             Console.WriteLine("=== Del 11: SmartLamp new vs override ===");
             SmartLamp lamp1 = new SmartLamp("IKEA", "Hallway", 80);
             Appliance lamp2 = lamp1;
+            lamp1.TurnOn();
+            lamp2.TurnOn();
+            Console.WriteLine();
 
-            lamp1.TurnOn(); // Kör SmartLamp.TurnOn()
-            lamp2.TurnOn(); // Kör Appliance.TurnOn()
-
-            // ==================== REFLEKTION DEL 1 ====================
+            Console.WriteLine("=== Del 13: Schedulable Devices List ===");
+            List<ISchedulable> schedulableDevices2 = controller.GetSchedulableDevices();
+            foreach (ISchedulable s in schedulableDevices2)
+            {
+                Console.WriteLine($"Schedulable device next run: {s.NextRun:HH:mm}");
+            }
 
             // ==================== REFLEKTION DEL 1 ====================
             // 1. Varför behövde du kontrollera vilken typ varje objekt hade?
@@ -123,6 +127,11 @@
             //    Arv: Washer ärver egenskaper och metoder från Appliance (är en apparat).
             //    Interface: Washer implementerar ISchedulable (kan schemaläggas).
             //    Arv = vad något ÄR. Interface = vad något KAN GÖRA.
+
+            // ==================== REFLEKTION DEL 13 ====================
+            // Varför kan listan vara List<ISchedulable> även om objekten egentligen är olika klasser?
+            // För att Washer, RobotVacuum och CoffeeMachine alla implementerar ISchedulable.
+            // Listan bryr sig inte om vilken klass objektet är, bara att det är ISchedulable.
         }
     }
 }
